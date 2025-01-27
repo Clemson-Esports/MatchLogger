@@ -8,6 +8,7 @@ from pathlib import Path
 import discord
 from discord.ext import commands, tasks
 from dotenv import dotenv_values
+import pytz
 import polars
 
 ENV_VARIABLES = dotenv_values("bot.env")
@@ -138,7 +139,7 @@ def main():
 
     @bot.tree.command(name="show_match", description="Shows a list of this week's matches")
     async def show_match(interaction: discord.Interaction):
-        current_day = datetime.datetime.today()
+        current_day = datetime.datetime.now(tz=pytz.timezone("US/Eastern"))
         embed = discord.Embed(
             title=f"Matches for the week of {current_day.strftime('%B %d, %Y')}",
             description="Here's the matches of this week!",
